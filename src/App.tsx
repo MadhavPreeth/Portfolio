@@ -1,8 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import textureBackground from "./assets/texture.png";
 import texturet from "./assets/texturet.png";
+import {useInView } from 'react-intersection-observer';
+
 function App() {
-  const [count, setCount] = useState(0);
+  const [showHeader, setShowHeader] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowHeader(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const { ref:projectsSectionRef, inView: projectsInView} = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  })
+
+  const { ref:projectsCardsRef, inView: projectscardInView} = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  })
+
+  const { ref:gamesSectionRef, inView: gamesInView} = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  })
+
+
 
   return (
     <>
@@ -12,7 +37,11 @@ function App() {
       >
         <header
           style={{ backgroundColor: "#6128D9" }}
-          className="fixed top-0 left-0 right-0 z-10 bg-white p-6 rounded-b-lg mx-auto flex items-center justify-evenly border-b-2 border-white shadow-lg shadow-[#7B7CD3] "
+          className={`fixed top-0 left-0 right-0 z-10 bg-white p-6 rounded-b-lg mx-auto flex items-center justify-evenly border-b-2 border-white shadow-lg shadow-[#7B7CD3] transition-all duration-1400 ease-out ${
+            showHeader
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 -translate-y-full"
+          } `}
         >
           <div className="flex items-center">
             <h1 className="text-[1.175rem] font-noto-sans-jp text-white select-none">
@@ -103,13 +132,13 @@ function App() {
           id="about"
           className="flex flex-row pt-35 justify-evenly items-center pb-60"
         >
-          <div className="w-87 ">
+          <div className={`w-87 hover:scale-105 transition duration-1500 ease-in-out ${showHeader ? ' translate-x-0' : '-translate-x-[600px]'}`}>
             <img src="cha.png"></img>
           </div>
 
           <div
             style={{ backgroundColor: "#A3A0DA" }}
-            className="flex flex-col pt-3 items-center w-[550px] h-[450px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] "
+            className={`flex flex-col pt-3 items-center w-[550px] h-[450px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1500 ease-in-out ${showHeader ? 'opacity-100 rotate-[0deg] scale-100' : 'opacity-0 rotate-[-15deg] scale-50'}`}
           >
             <header className="text-[4.5rem]">About Me</header>
             <div className="w-[450px] pt-5 pl-4 text-[1.3rem]">
@@ -122,13 +151,13 @@ function App() {
           </div>
         </section>
 
-        <section id="projects" className="scroll-mt-[124px]">
+        <section id="projects" className={`scroll-mt-[124px]`}>
           <div className="flex flex-col justify-evenly items-center space-y-15">
-            <header className="text-[4.5rem]">Projects</header>
+            <header ref={projectsSectionRef} className={`text-[4.5rem] transition-all duration-1000 ease-out ${projectsInView ? 'opacity-100 scale-100' : 'opacity-0 scale-0'} hover:scale-115  transition duration-300 ease-in-out`}>Projects</header>
             <div className="flex flex-row justify-evenly space-x-12 pb-71">
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
-                className="flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] "
+                className={`flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition-all duration-1000 ease-in-out ${projectscardInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'}`}
               >
                 <a
                   href="https://github.com/MadhavPreeth/AimTrain"
@@ -144,7 +173,8 @@ function App() {
               </div>
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
-                className="flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] "
+                ref={projectsCardsRef}
+                className="flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1000 ease-in-out"
               >
                 <a
                   href="https://github.com/MadhavPreeth/URLShortener"
@@ -159,7 +189,7 @@ function App() {
               </div>
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
-                className="flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] "
+                className={`flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1000 ease-in-out ${projectscardInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
               >
                 <a
                   href="https://github.com/MadhavPreeth/FocusApp"
@@ -179,22 +209,22 @@ function App() {
 
         <section id="games" className="scroll-mt-[138px]">
           <div className="flex flex-row justify-evenly items-center pb-60">
-            <header className="text-[4.5rem]">Games</header>
+            <header ref={gamesSectionRef} className={`text-[4.5rem] hover:scale-115 transition duration-1000 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'}`}>Games</header>
             <div className="flex flex-col justify-evenly space-y-12 ">
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
-                className="flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] "
+                className={`flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1100 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
               >
                 <a
                   href="https://r4cerr.itch.io/keybrawl"
                   className="text-[2.5rem] hover:text-black transition duration-300 ease-in-out"
-                >
+                > 
                   KeyBrawl
                 </a>
               </div>
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
-                className="flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] "
+                className={`flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1150 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
               >
                 <a
                   href="https://r4cerr.itch.io/socially-awkward"
@@ -205,7 +235,7 @@ function App() {
               </div>
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
-                className="flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] "
+                className={`flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1200 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
               >
                 <a
                   href="https://r4cerr.itch.io/hardpunk"
@@ -223,13 +253,15 @@ function App() {
         className="h-[325px] text-[22px] font-montserrat text-white flex flex-col justify-evenly items-center"
       >
         <header>Made By Madhav Preeth</header>
-        <div className="flex flex-row space-x-20 pr-8">
-          <a href="https://github.com/MadhavPreeth" className="w-[50px] h-[50px]">
+        <div className="flex flex-row space-x-17 pl-1">
+          <a
+            href="https://github.com/MadhavPreeth"
+            className="hover:scale-125 transition duration-300 ease-in-out"
+          >
             <svg
-              className="w-[80px] h-[50px] "
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="60"
+              height="60"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#ffffff"
@@ -243,12 +275,14 @@ function App() {
             </svg>
           </a>
 
-          <a href="https://www.linkedin.com/in/madhav-preeth-153398334/" className="w-[50px] h-[50px]">
+          <a
+            href="https://www.linkedin.com/in/madhav-preeth-153398334/"
+            className="hover:scale-125 transition duration-300 ease-in-out"
+          >
             <svg
-              className="w-[80px] h-[50px]"
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="60"
+              height="60"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#ffffff"
