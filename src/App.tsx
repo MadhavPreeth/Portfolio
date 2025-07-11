@@ -1,10 +1,33 @@
 import { useState, useEffect } from "react";
 import textureBackground from "./assets/texture.png";
 import texturet from "./assets/texturet.png";
+import { items, type PortfolioItem } from './data/portfolioData';
 import {useInView } from 'react-intersection-observer';
+import ProjectModal from './components/projectModal';
 
 function App() {
   const [showHeader, setShowHeader] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem,setSelectedItem] = useState<PortfolioItem | null>(null)
+  const aimTrainItem = items.find(item => item.id === 'aimtrain');
+  const urlShortItem = items.find(item => item.id === 'urlshort');
+  const focusItem = items.find(item => item.id === 'focus');
+  const keybrawlItem = items.find(item => item.id === 'keybrawl');
+  const socawkItem = items.find(item => item.id === 'sociallyawkward');
+  const hardpunkItem = items.find(item => item.id === 'hardpunk');
+
+  const handleCardClick = (item: PortfolioItem) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedItem(null); 
+  };
+
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowHeader(true);
@@ -158,9 +181,9 @@ function App() {
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
                 className={`flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition-all duration-1000 ease-in-out ${projectscardInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'}`}
+                onClick={() => aimTrainItem && handleCardClick(aimTrainItem)}
               >
                 <a
-                  href="https://github.com/MadhavPreeth/AimTrain"
                   className="text-[4.5rem] hover:text-black transition duration-300 ease-in-out"
                 >
                   AimTrain
@@ -175,9 +198,9 @@ function App() {
                 style={{ backgroundColor: "#A3A0DA" }}
                 ref={projectsCardsRef}
                 className="flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1000 ease-in-out"
+                onClick={() => urlShortItem && handleCardClick(urlShortItem)}
               >
                 <a
-                  href="https://github.com/MadhavPreeth/URLShortener"
                   className="text-[4.5rem] hover:text-black transition duration-300 ease-in-out"
                 >
                   UrlShort
@@ -190,9 +213,9 @@ function App() {
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
                 className={`flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1000 ease-in-out ${projectscardInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
+                onClick={() => focusItem && handleCardClick(focusItem)}
               >
                 <a
-                  href="https://github.com/MadhavPreeth/FocusApp"
                   className="text-[4.5rem] hover:text-black transition duration-300 ease-in-out"
                 >
                   Focus
@@ -214,10 +237,10 @@ function App() {
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
                 className={`flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1100 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
+                onClick={() => keybrawlItem && handleCardClick(keybrawlItem)}
               >
                 <a
-                  href="https://r4cerr.itch.io/keybrawl"
-                  className="text-[2.5rem] hover:text-black transition duration-300 ease-in-out"
+                  className="text-[2.5rem] hover:text-black transition duration-300 ease-in-out" 
                 > 
                   KeyBrawl
                 </a>
@@ -225,9 +248,9 @@ function App() {
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
                 className={`flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1150 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
+                onClick={() => socawkItem && handleCardClick(socawkItem)}
               >
                 <a
-                  href="https://r4cerr.itch.io/socially-awkward"
                   className="text-[2.5rem] hover:text-black transition duration-300 ease-in-out"
                 >
                   Socially Awkward
@@ -236,9 +259,9 @@ function App() {
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
                 className={`flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1200 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
+                onClick={() => hardpunkItem && handleCardClick(hardpunkItem)}
               >
                 <a
-                  href="https://r4cerr.itch.io/hardpunk"
                   className="text-[2.5rem] hover:text-black transition duration-300 ease-in-out"
                 >
                   HardPunk
@@ -298,6 +321,9 @@ function App() {
           </a>
         </div>
       </div>
+      {isModalOpen && selectedItem && (
+        <ProjectModal item={selectedItem} onClose={handleCloseModal} />
+      )}
     </>
   );
 }
