@@ -180,14 +180,14 @@ function App() {
             <div className="flex flex-row justify-evenly space-x-12 pb-71">
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
-                className={`flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition-all duration-1000 ease-in-out ${projectscardInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'}`}
+                className={`cursor-pointer flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition-all duration-1000 ease-in-out ${projectscardInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'}`}
                 onClick={() => aimTrainItem && handleCardClick(aimTrainItem)}
               >
-                <a
+                <div
                   className="text-[4.5rem] hover:text-black transition duration-300 ease-in-out"
                 >
                   AimTrain
-                </a>
+                </div>
                 <div className="w-[350px] pt-6 text-[1.3rem] pl-4">
                   AimTrain is a web-based game designed to help you test and
                   improve your mouse accuracy and reaction time. Made using
@@ -197,14 +197,14 @@ function App() {
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
                 ref={projectsCardsRef}
-                className="flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1000 ease-in-out"
+                className="cursor-pointer flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1000 ease-in-out"
                 onClick={() => urlShortItem && handleCardClick(urlShortItem)}
               >
-                <a
+                <div
                   className="text-[4.5rem] hover:text-black transition duration-300 ease-in-out"
                 >
                   UrlShort
-                </a>
+                </div>
                 <div className="w-[350px] pt-6 text-[1.3rem] pl-4">
                   A simple URL shortener web app that takes a long URL and
                   generates a TinyURL-based short link using the TinyURL API.
@@ -212,14 +212,14 @@ function App() {
               </div>
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
-                className={`flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1000 ease-in-out ${projectscardInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
+                className={`cursor-pointer flex flex-col pt-6 items-center w-[424px] h-[400px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1000 ease-in-out ${projectscardInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
                 onClick={() => focusItem && handleCardClick(focusItem)}
               >
-                <a
+                <div
                   className="text-[4.5rem] hover:text-black transition duration-300 ease-in-out"
                 >
                   Focus
-                </a>
+                </div>
                 <div className="w-[350px] pt-6 text-[1.3rem] pl-4">
                   Focus is a minimalist and easy-to-use timer designed to help
                   you concentrate and manage your time effectively. Made using
@@ -236,36 +236,36 @@ function App() {
             <div className="flex flex-col justify-evenly space-y-12 ">
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
-                className={`flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1100 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
+                className={`cursor-pointer flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1100 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
                 onClick={() => keybrawlItem && handleCardClick(keybrawlItem)}
               >
-                <a
+                <div
                   className="text-[2.5rem] hover:text-black transition duration-300 ease-in-out" 
                 > 
                   KeyBrawl
-                </a>
+                </div>
               </div>
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
-                className={`flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1150 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
+                className={`cursor-pointer flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1150 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
                 onClick={() => socawkItem && handleCardClick(socawkItem)}
               >
-                <a
+                <div
                   className="text-[2.5rem] hover:text-black transition duration-300 ease-in-out"
                 >
                   Socially Awkward
-                </a>
+                </div>
               </div>
               <div
                 style={{ backgroundColor: "#A3A0DA" }}
-                className={`flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1200 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
+                className={`cursor-pointer flex flex-col pt-8 items-center w-[624px] h-[150px] rounded-4xl border-solid border-[#7B7CD3] border-[12px] shadow-2xl shadow-[#7B7CD3] hover:scale-105 transition duration-1200 ease-in-out ${gamesInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}
                 onClick={() => hardpunkItem && handleCardClick(hardpunkItem)}
               >
-                <a
+                <div
                   className="text-[2.5rem] hover:text-black transition duration-300 ease-in-out"
                 >
                   HardPunk
-                </a>
+                </div>
               </div>
             </div>
           </div>
